@@ -1,6 +1,3 @@
-# commande_git
-
-
 
 ###########################################################################
 ##                             configuration                             ##
@@ -66,6 +63,11 @@
     git branch -v //Pour visualiser la liste des derniers commits sur chaque branche, vous pouvez utiliser le commande 
     git branch --merged
     git branch --no-merged
+##########################################################################
+##                               MERGE                               ##
+##########################################################################
+    git branch --merged
+    git branch --no-merged
     git merge login_feature
       si le master n'a pas été changé depuis la branch alors c'est un merge fast-forward (pas de nouveau commit qui serait créé comme si le master rejoint l'autre branche mergé)
       sinon "Merge made by the 'recursive' strategy" si le master a changé depuis (sans conflit), un nouveau commit sera créé
@@ -76,27 +78,6 @@
           git add . 
           git commit 
          
-
-  //Pousser la branche renommée sur le server
-  git push --set-upstream origin nom-de-branche-corrigé
-  git push origin --delete mauvais-nom-de-branche
-  git push (serveur distant) (branche)
-  git push origin correctionserveur:branchegeniale //si on veut changer le nom de la branche local et lui donner un autre nom sur le serveur
-
-  récupérer les modifications des autres avec fetch: quand on récupère une branche elle n'est pas fusionné directement avec notre travail il faut un merge si on veut  
-    git fetch servreDistant_origin_par_exemple
-    git merge origin/correctionserveur // pour le merge
-    git checkout -b correctionserveur origin/correctionserveur // si on veut créer notre propre branche,Cette commande vous fournit une branche locale modifiable basée sur l’état actuel de
-  origin/correctionserveur
-  *****************************************
-  Suivre les branches [***** à relire le cours******] :
-    L’extraction d’une branche locale à partir d’une branche distante crée automatiquement ce qu’on
-    appelle une "branche de suivi" (tracking branch) [sont des branches locales qui sont en relation
-    directe avec une branche distante.]
-  *****************************************
-  Suppression de branches distantes
-    git push origin --delete correctionserveur
-
 ##########################################################################
 ##                                REBASE                                ##
 ##########################################################################
@@ -167,3 +148,32 @@
 ##########################################################################
 ##                                RESET                                 ##
 ##########################################################################
+
+  git reset sha1Commit // revenir à un commentaire précédent sans perdre le travail des autres commits(donc il faut git add . pour les rajouter si on veut)
+  git reset sha1Commit --hard //sans possibilité de récupération des commits supprimés
+
+  git reset head --mixed // reset d'un truc déjà dans le stageArea vers workingArea <==>  git restore --staged <file> (on l'enlève du ADD)
+  git reset head --hard //on perd les données modifiées
+
+##########################################################################
+##                                Distant                                 ##
+##########################################################################
+    //Pousser la branche renommée sur le server
+  git push --set-upstream origin nom-de-branche-corrigé
+  git push origin --delete mauvais-nom-de-branche
+  git push (serveur distant) (branche)
+  git push origin correctionserveur:branchegeniale //si on veut changer le nom de la branche local et lui donner un autre nom sur le serveur
+
+  récupérer les modifications des autres avec fetch: quand on récupère une branche elle n'est pas fusionné directement avec notre travail il faut un merge si on veut  
+    git fetch servreDistant_origin_par_exemple
+    git merge origin/correctionserveur // pour le merge
+    git checkout -b correctionserveur origin/correctionserveur // si on veut créer notre propre branche,Cette commande vous fournit une branche locale modifiable basée sur l’état actuel de
+  origin/correctionserveur
+  *****************************************
+  Suivre les branches [***** à relire le cours******] :
+    L’extraction d’une branche locale à partir d’une branche distante crée automatiquement ce qu’on
+    appelle une "branche de suivi" (tracking branch) [sont des branches locales qui sont en relation
+    directe avec une branche distante.]
+  *****************************************
+  Suppression de branches distantes
+    git push origin --delete correctionserveur
