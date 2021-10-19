@@ -1,0 +1,37 @@
+@component
+  templateUrl ou template  // ``
+  styleUrls ou styles // [``]
+  selector :
+    'app-users' // par défaut <app-users></app-users>
+    '[app-users]' // <div app-users ></div>
+    '.app-users' // <div class='app-users'></div>
+
+ngIF
+  <div *ngIf="amar; then contentIf; else contentElse"> </div>
+  <ng-template #contentIf><h1>IF</h1></ng-template>
+  <ng-template #contentElse><h1>Else</h1></ng-template>
+
+ngFor
+  <div *ngIf="usersData as users">
+    <div *ngFor="let user of users">{{ user }} :D</div>
+  </div>
+
+ngStyle
+  <div [ngStyle]="{background-color: 'red', position: getPosition()}"></div>
+
+ngClass
+  <div [ngClass]="{offline : userStatus ==='offline'}"></div>
+
+DATA
+  two binding
+    <input [(ngModel)]="userName" />
+  
+  send data 
+    from parent to child
+      parent :<app-user  *ngFor="let user of users" [userName]="user" [jsk]="user"></app-user>
+      child : @Input() userName: string;
+      child : @Input('jsk') userName: string;
+    from child to parent
+      child (<app-add-user>) : @Output() userAdded = new EventEmitter<string>();  this.userAdded.emit(this.userName)
+      parents (<user-app>):<app-add-user (userAdded)="OnUserAdded($event)"></app-add-user> ;  OnUserAdded(event) {}
+
